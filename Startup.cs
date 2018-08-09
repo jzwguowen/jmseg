@@ -36,6 +36,8 @@ namespace jmseg
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
+            services.AddApiVersioning(option => option.ReportApiVersions = true);
+
             //
             // Dependency Injection
             //

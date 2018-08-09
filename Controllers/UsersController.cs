@@ -5,7 +5,9 @@ using jmseg.Business;
 namespace jmseg.Controllers
 {
 
-    [Route("api/[controller]")]
+
+    [ApiVersion("1")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
     public class UsersController : ControllerBase
     {
