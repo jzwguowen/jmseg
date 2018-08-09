@@ -1,0 +1,19 @@
+version: "3"
+services:
+  db:
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    volumes:
+      - "${POSTGRES}:/var/lib/postgresql/data"
+  #app:
+  #  build: .
+  #  container_name: jmseg
+  # command:
+  #  volumes:
+  #    - ".:/app"
+  #  ports:
+  #    - "5000:5000" # http
+  #    - "5001:5001" # https
+  #  links:
+  #    - db
