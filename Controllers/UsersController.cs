@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using jmseg.Model;
+using jmseg.Models;
 using jmseg.Business;
 
 namespace jmseg.Controllers

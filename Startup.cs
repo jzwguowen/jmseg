@@ -14,6 +14,8 @@ using jmseg.Business;
 using jmseg.Business.Implementation;
 using jmseg.DAO;
 using jmseg.DAO.Implementation;
+using jmseg.Models.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace jmseg
 {
@@ -29,6 +31,9 @@ namespace jmseg
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var connection = Configuration["MySqlConnection:MySqlConnectionString"];
+            services.AddDbContext<MySQLContext>(options => options.UseMySql(connection));
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             //

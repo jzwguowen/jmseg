@@ -1,4 +1,4 @@
-using jmseg.Model;
+using jmseg.Models;
 using System.Collections.Generic;
 
 namespace jmseg.DAO

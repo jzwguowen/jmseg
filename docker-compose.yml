@@ -1,11 +1,15 @@
 version: "3"
 services:
   db:
-    image: postgres:latest
+    image: mariadb:10.3.6
+    container_name: mysql
     ports:
-      - "5432:5432"
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: root
     volumes:
-      - "${POSTGRES}:/var/lib/postgresql/data"
+      - "./data/mysql:/var/lib/mysql"
   #app:
   #  build: .
   #  container_name: jmseg

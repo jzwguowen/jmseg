@@ -1,6 +1,8 @@
 using System.Collections.Generic;
-using jmseg.Model;
+using System.Security.Cryptography;
+using jmseg.Models;
 using jmseg.DAO;
+using BCrypt;
 
 namespace jmseg.Business.Implementation
 {
@@ -13,9 +15,14 @@ namespace jmseg.Business.Implementation
             dao = repository;
         }
 
-        public User Create(User User)
+        public User Create(User user)
         {
-            return dao.Create(User);
+            user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
+
+            // check a password
+            //bool validPassword = BCrypt.Net.BCrypt.Verify(userSubmittedPassword, hashedPassword);
+
+            return dao.Create(user);
         }
 
         public User FindById(long id)
@@ -33,9 +40,9 @@ namespace jmseg.Business.Implementation
             return dao.FindAll();
         }
 
-        public User Update(User User)
+        public User Update(User user)
         {
-            return dao.Update(User);
+            return dao.Update(user);
         }
 
         public void Delete(long id)
