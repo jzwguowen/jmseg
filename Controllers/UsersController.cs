@@ -1,38 +1,84 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using jmseg.Model;
+using jmseg.Business;
 
-namespace jmseg.Controllers {
+namespace jmseg.Controllers
+{
 
     [Route("api/[controller]")]
     [ApiController]
-    public class UsersController : ControllerBase {
-        
+    public class UsersController : ControllerBase
+    {
+        private IUserBusiness userBusiness;
+
+        public UsersController(IUserBusiness userBusiness)
+        {
+            this.userBusiness = userBusiness;
+        }
+
+        //
+        // Retorna uma lista com todos os usuários.
+        //
         [HttpGet]
-        public IActionResult Get() {
-            return Ok(new User());
+        public IActionResult Get()
+        {
+            return Ok(userBusiness.FindAll());
         }
 
+        //
+        // Retorna um único usuário, identificado pelo id.
+        //
         [HttpGet("{id}")]
-        public IActionResult Get(int id) {
-            return Ok(new User());
+        public IActionResult Get(int id)
+        {
+            var user = userBusiness.FindById(id);
+            
+            if (user == null) {
+                return NotFound();
+            }
+
+            return Ok(user);
         }
 
+        //
+        // Cria um novo usuário conforme dados de entrada.
+        //
         [HttpPost]
-        public IActionResult Post([FromBody] User user) {
-            return Ok(new User());
+        public IActionResult Post([FromBody] User user)
+        {
+            if (user == null) {
+                return BadRequest();
+            }
+
+            return new ObjectResult(userBusiness.Create(user));
         }
 
+        //
+        // Atualiza as informações de um usuário.
+        //
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody] User user) {
-            return Ok(new User());
+        public IActionResult Put(int id, [FromBody] User user)
+        {
+            if (user == null) {
+                return BadRequest();
+            }
+
+            var updatedUser = userBusiness.Update(user);
+            
+            if (updatedUser == null) {
+                return BadRequest();
+            }
+
+            return new ObjectResult(updatedUser);
         }
 
+        //
+        // Remove um usuário, identificado pelo id.
+        //
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id) {
+        public IActionResult Delete(int id)
+        {
+            userBusiness.Delete(id);
             return NoContent();
         }
     }

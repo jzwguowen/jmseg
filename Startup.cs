@@ -10,6 +10,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using jmseg.Business;
+using jmseg.Business.Implementation;
+using jmseg.DAO;
+using jmseg.DAO.Implementation;
 
 namespace jmseg
 {
@@ -26,6 +30,12 @@ namespace jmseg
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            //
+            // Dependency Injection
+            //
+            services.AddScoped<IUserBusiness, UserBusiness>();
+            services.AddScoped<IUserDAO, UserDAO>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
