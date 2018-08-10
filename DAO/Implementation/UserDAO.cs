@@ -34,6 +34,11 @@ namespace jmseg.DAO.Implementation
             return _context.Users.SingleOrDefault(user => user.Id.Equals(id));
         }
 
+        public User FindByEmail(string email)
+        {
+            return _context.Users.SingleOrDefault(user => user.Email.Equals(email));
+        }
+
         public User FindByLogin(User user)
         {
             return _context.Users.SingleOrDefault(u => u.Email.Equals(user.Email));

@@ -2,6 +2,8 @@
 using jmseg.Models;
 using jmseg.Business;
 using Microsoft.AspNetCore.Authorization;
+using jmseg.VO;
+using System.Security.Claims;
 
 namespace jmseg.Controllers
 {
@@ -48,7 +50,7 @@ namespace jmseg.Controllers
         // Cria um novo usuário conforme dados de entrada.
         //
         [HttpPost]
-        [Authorize("Bearer")]
+        //[Authorize("Bearer")]
         public IActionResult Post([FromBody] User user)
         {
             if (user == null) {
@@ -59,11 +61,32 @@ namespace jmseg.Controllers
         }
 
         //
+        // Troca o password do usuário
+        //
+        [HttpPost("reset_password")]
+        [Authorize("Bearer")]
+        public IActionResult ResetPassword([FromBody] ResetPasswordVO obj)
+        {
+            //
+            // Recupera o usuário logado
+            //
+            User user = userBusiness.FindByEmail(User.Identity.Name);
+
+            if (user == null) {
+                return BadRequest();
+            }
+
+            object result = userBusiness.ResetPassword(user, obj);
+
+            return Ok(result);
+        }
+
+        //
         // Atualiza as informações de um usuário.
         //
-        [HttpPut("{id}")]
+        [HttpPut]
         [Authorize("Bearer")]
-        public IActionResult Put(int id, [FromBody] User user)
+        public IActionResult Put([FromBody] User user)
         {
             if (user == null) {
                 return BadRequest();

@@ -2,7 +2,8 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using jmseg.Models;
 using jmseg.DAO;
-//using BCrypt;
+using jmseg.VO;
+using BCrypt;
 
 using System;
 using jmseg.Security.Configuration;
@@ -27,10 +28,10 @@ namespace jmseg.Business.Implementation
 
         public User Create(User user)
         {
-            //user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
-
-            // check a password
-            //bool validPassword = BCrypt.Net.BCrypt.Verify(userSubmittedPassword, hashedPassword);
+            //
+            // Criptografa a senha com o algoritmo BCrypt
+            //
+            user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
 
             return dao.Create(user);
         }
@@ -40,16 +41,27 @@ namespace jmseg.Business.Implementation
             return dao.FindById(id);
         }
 
+        public User FindByEmail(string email) {
+            return dao.FindByEmail(email);
+        }
+
         public object FindByLogin(User user)
         {
-            //return dao.FindByLogin(user);
-
             bool credentialsIsValid = false;
             
             if (user != null && !string.IsNullOrWhiteSpace(user.Email))
             {
                 var baseUser = dao.FindByLogin(user);
-                credentialsIsValid = (baseUser != null && user.Email == baseUser.Email && user.Password == baseUser.Password);
+
+                //
+                // check a password
+                //
+                if (baseUser != null)
+                {
+                    bool isValidPassword = BCrypt.Net.BCrypt.Verify(user.Password, baseUser.Password);
+
+                    credentialsIsValid = (user.Email == baseUser.Email && isValidPassword);
+                }
             }
 
             if (credentialsIsValid)
@@ -83,6 +95,11 @@ namespace jmseg.Business.Implementation
 
         public User Update(User user)
         {
+            //
+            // Criptografa a senha com o algoritmo BCrypt
+            //
+            user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
+
             return dao.Update(user);
         }
 
@@ -94,6 +111,39 @@ namespace jmseg.Business.Implementation
         public bool Exists(long id)
         {
             return dao.Exists(id);
+        }
+
+        public object ResetPassword(User user, ResetPasswordVO obj)
+        {
+            bool credentialsIsValid = false;
+            
+            if (user != null && !string.IsNullOrWhiteSpace(user.Email))
+            {
+                //
+                // check a password
+                //
+                credentialsIsValid = BCrypt.Net.BCrypt.Verify(obj.Password, user.Password);
+            }
+
+            if (credentialsIsValid)
+            {
+                //
+                // Criptografa a senha com o algoritmo BCrypt
+                //
+                user.Password = BCrypt.Net.BCrypt.HashPassword(obj.NewPassword);
+
+                dao.Update(user);
+
+                return new
+                {
+                    message = "OK"
+                };
+            } else {
+                return new
+                {
+                    message = "Failed"
+                };
+            }
         }
 
         private string CreateToken(ClaimsIdentity identity, DateTime createDate, DateTime expirationDate, JwtSecurityTokenHandler handler)
@@ -117,7 +167,7 @@ namespace jmseg.Business.Implementation
             return new
             {
                 autenticated = false,
-                message = "Failed to autheticate"
+                message = "Failed to authenticate"
             };
         }
 
