@@ -20,9 +20,6 @@ namespace jmseg.Controllers
             this.userBusiness = userBusiness;
         }
 
-        //
-        // Retorna uma lista com todos os usuários.
-        //
         [HttpGet]
         [Authorize("Bearer")]
         public IActionResult Get()
@@ -30,9 +27,6 @@ namespace jmseg.Controllers
             return Ok(userBusiness.FindAll());
         }
 
-        //
-        // Retorna um único usuário, identificado pelo id.
-        //
         [HttpGet("{id}")]
         [Authorize("Bearer")]
         public IActionResult Get(int id)
@@ -46,11 +40,7 @@ namespace jmseg.Controllers
             return Ok(user);
         }
 
-        //
-        // Cria um novo usuário conforme dados de entrada.
-        //
         [HttpPost]
-        //[Authorize("Bearer")]
         public IActionResult Post([FromBody] User user)
         {
             if (user == null) {
@@ -60,16 +50,10 @@ namespace jmseg.Controllers
             return new ObjectResult(userBusiness.Create(user));
         }
 
-        //
-        // Troca o password do usuário
-        //
         [HttpPost("reset_password")]
         [Authorize("Bearer")]
         public IActionResult ResetPassword([FromBody] ResetPasswordVO obj)
         {
-            //
-            // Recupera o usuário logado
-            //
             User user = userBusiness.FindByEmail(User.Identity.Name);
 
             if (user == null) {
@@ -81,9 +65,6 @@ namespace jmseg.Controllers
             return Ok(result);
         }
 
-        //
-        // Atualiza as informações de um usuário.
-        //
         [HttpPut]
         [Authorize("Bearer")]
         public IActionResult Put([FromBody] User user)
@@ -101,9 +82,6 @@ namespace jmseg.Controllers
             return new ObjectResult(updatedUser);
         }
 
-        //
-        // Remove um usuário, identificado pelo id.
-        //
         [HttpDelete("{id}")]
         [Authorize("Bearer")]
         public IActionResult Delete(int id)

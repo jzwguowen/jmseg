@@ -7,6 +7,19 @@ It's a **fantastic project** to improve my C# & ASP.net knowledge =)
 - Para subir o banco de dados via Docker, executar o comando ```docker-compose up -d```
 - Para facilitar os testes dos endpoints, importar o arquivo ```jmseg.postman_collection.json``` no Postman.
 
+Script para criação de tabela no banco de dados (caso não seja optada a opção por Docker)
+
+```sql
+CREATE TABLE `users` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `name` varchar(500) NOT NULL,
+  `email` varchar(500) NOT NULL,
+  `password` varchar(500) NOT NULL,
+  PRIMARY KEY (ID),
+  UNIQUE KEY(email)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+```
+
 #### Cadastro de novo usuário (não necessita de autenticação)
 
 POST http://localhost:5000/api/v1/users/
