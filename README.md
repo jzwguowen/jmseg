@@ -4,13 +4,8 @@ It's a **fantastic project** to improve my C# & ASP.net knowledge =)
 
 ## Ambiente
 
-Para subir a aplicação (e o banco de dados) basta executar o comando ```docker-compose up -d```
-
-## API
-
-**ATENÇÃO**
-
-Para facilitar os testes dos endpoints, basta importar o arquivo ```jmseg.postman_collection.json``` no Postman.
+- Para subir o banco de dados via Docker, executar o comando ```docker-compose up -d```
+- Para facilitar os testes dos endpoints, importar o arquivo ```jmseg.postman_collection.json``` no Postman.
 
 #### Cadastro de novo usuário (não necessita de autenticação)
 
