@@ -1,12 +1,12 @@
 {
 	"info": {
-		"_postman_id": "8f37dde5-4fef-4c04-9028-a8c6d9104684",
+		"_postman_id": "05e18ac3-6910-4f02-86b1-18217f9933c1",
 		"name": "jmseg",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"_postman_id": "b51ab008-b752-4e76-9917-3958f2d7b4c4",
+			"_postman_id": "9629d625-6dc9-4f19-a0af-20a07f9e1ba1",
 			"name": "login",
 			"event": [
 				{
@@ -53,7 +53,7 @@
 			"response": []
 		},
 		{
-			"_postman_id": "49f3aaf1-6896-41b4-a0ed-9e1bc7c8b7d4",
+			"_postman_id": "eb08e312-13b4-4cb6-be76-0b81f819402e",
 			"name": "list",
 			"request": {
 				"auth": {
@@ -68,7 +68,10 @@
 				},
 				"method": "GET",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "http://localhost:5000/api/v1/users",
 					"protocol": "http",
@@ -86,7 +89,7 @@
 			"response": []
 		},
 		{
-			"_postman_id": "13dbc68c-c869-4e60-bf3c-191aefeaa515",
+			"_postman_id": "77b4b796-c170-4c46-9c9e-822630e069ea",
 			"name": "get",
 			"event": [
 				{
@@ -113,7 +116,10 @@
 				},
 				"method": "GET",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "http://localhost:5000/api/v1/users/4",
 					"protocol": "http",
@@ -132,9 +138,12 @@
 			"response": []
 		},
 		{
-			"_postman_id": "931084ee-1a24-4bc2-b92a-0724dcf92b96",
+			"_postman_id": "04eaeec4-1439-476b-95e3-3635a435acd5",
 			"name": "create",
 			"request": {
+				"auth": {
+					"type": "noauth"
+				},
 				"method": "POST",
 				"header": [
 					{
@@ -163,7 +172,7 @@
 			"response": []
 		},
 		{
-			"_postman_id": "52ae6c4d-45fd-46ed-8893-81f49ccc6a00",
+			"_postman_id": "4f14c065-08a4-44f4-92e5-525f42fb2b12",
 			"name": "update",
 			"request": {
 				"auth": {
@@ -204,12 +213,25 @@
 			"response": []
 		},
 		{
-			"_postman_id": "8bc7ef0e-4c13-4792-926d-451e442c8432",
+			"_postman_id": "f9e4fa78-bd52-4b89-a2f9-11c8d773fdf6",
 			"name": "destroy",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{bearer_token}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "DELETE",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "http://localhost:5000/api/v1/users/1",
 					"protocol": "http",
@@ -228,7 +250,7 @@
 			"response": []
 		},
 		{
-			"_postman_id": "be4f1427-067a-4c01-b05a-fec042e86c43",
+			"_postman_id": "73028e62-fd18-47e5-ab27-e5d1f40a0616",
 			"name": "reset_password",
 			"request": {
 				"auth": {
