@@ -31,12 +31,12 @@ namespace jmseg.DAO.Implementation
 
         public User FindById(long id)
         {
-            return _context.Users.SingleOrDefault(p => p.Id.Equals(id));
+            return _context.Users.SingleOrDefault(user => user.Id.Equals(id));
         }
 
-        public User FindByEmail(string email)
+        public User FindByLogin(User user)
         {
-            return new User();
+            return _context.Users.SingleOrDefault(u => u.Email.Equals(user.Email));
         }
 
         public List<User> FindAll()
@@ -46,12 +46,8 @@ namespace jmseg.DAO.Implementation
 
         public User Update(User user)
         {
-            // Verificamos se a pessoa existe na base
-            // Se não existir retornamos uma instancia vazia de pessoa
             if (!Exists(user.Id)) return null;
 
-            // Pega o estado atual do registro no banco
-            // seta as alterações e salva
             var result = _context.Users.SingleOrDefault(b => b.Id == user.Id);
             if (result != null)
             {

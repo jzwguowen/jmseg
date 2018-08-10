@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using jmseg.Models;
 using jmseg.Business;
+using Microsoft.AspNetCore.Authorization;
 
 namespace jmseg.Controllers
 {
-
 
     [ApiVersion("1")]
     [Route("api/v{version:apiVersion}/[controller]")]
@@ -22,6 +22,7 @@ namespace jmseg.Controllers
         // Retorna uma lista com todos os usuários.
         //
         [HttpGet]
+        [Authorize("Bearer")]
         public IActionResult Get()
         {
             return Ok(userBusiness.FindAll());
@@ -31,6 +32,7 @@ namespace jmseg.Controllers
         // Retorna um único usuário, identificado pelo id.
         //
         [HttpGet("{id}")]
+        [Authorize("Bearer")]
         public IActionResult Get(int id)
         {
             var user = userBusiness.FindById(id);
@@ -46,6 +48,7 @@ namespace jmseg.Controllers
         // Cria um novo usuário conforme dados de entrada.
         //
         [HttpPost]
+        [Authorize("Bearer")]
         public IActionResult Post([FromBody] User user)
         {
             if (user == null) {
@@ -59,6 +62,7 @@ namespace jmseg.Controllers
         // Atualiza as informações de um usuário.
         //
         [HttpPut("{id}")]
+        [Authorize("Bearer")]
         public IActionResult Put(int id, [FromBody] User user)
         {
             if (user == null) {
@@ -78,6 +82,7 @@ namespace jmseg.Controllers
         // Remove um usuário, identificado pelo id.
         //
         [HttpDelete("{id}")]
+        [Authorize("Bearer")]
         public IActionResult Delete(int id)
         {
             userBusiness.Delete(id);

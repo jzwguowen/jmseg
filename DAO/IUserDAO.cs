@@ -7,7 +7,7 @@ namespace jmseg.DAO
     {
         User Create(User user);
         User FindById(long id);
-        User FindByEmail(string email);
+        User FindByLogin(User user);
         List<User> FindAll();
         User Update(User user);
         void Delete(long id);
