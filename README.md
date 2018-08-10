@@ -54,7 +54,7 @@ PUT http://localhost:5000/api/v1/users/
 
 #### Remoção de um usuário
 
-DELETE http://localhost:5000/api/v1/users/
+DELETE http://localhost:5000/api/v1/users/{id}
 
 #### Troca de senha
 
