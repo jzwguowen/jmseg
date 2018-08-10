@@ -8,6 +8,10 @@ Para subir a aplicação (e o banco de dados) basta executar o comando ```docker
 
 ## API
 
+**ATENÇÃO**
+
+Para facilitar os testes dos endpoints, basta importar o arquivo ```jmseg.postman_collection.json``` no Postman.
+
 #### Cadastro de novo usuário (não necessita de autenticação)
 
 POST http://localhost:5000/api/v1/users/
